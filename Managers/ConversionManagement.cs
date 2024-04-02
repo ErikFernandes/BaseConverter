@@ -144,7 +144,7 @@ namespace BaseConverter.Managers
                     FormatValueForColumnCli(column, lineValues[GlobalVariables.SelectedColumnsCli[column]!.Value]));
             }
 
-            GlobalVariables.StringOutput.AppendLine(CreateCommandLineProdutos(produto, produtoQtd));
+            GlobalVariables.StringOutput.AppendLine(CreateCommandLineClientes(cliente));
         }
     }
 }
