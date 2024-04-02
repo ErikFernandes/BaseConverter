@@ -5,7 +5,7 @@ namespace BaseConverter.Managers
 {
     public static class FormatManagement
     {
-        public static string FormatValueForColumnProd(ColumnsSupportedProd column, string value)
+        public static object FormatValueForColumnProd(ColumnsSupportedProd column, string value)
         {
             return column switch
             {
@@ -16,27 +16,21 @@ namespace BaseConverter.Managers
                 ColumnsSupportedProd.Categoria => value.RemoveMarks().CutIfTooLong(15),
                 ColumnsSupportedProd.Unidade => value.RemoveMarks().CutIfTooLong(3),
                 ColumnsSupportedProd.Marca => value.RemoveMarks().CutIfTooLong(15),
-                ColumnsSupportedProd.ValorCustoMedio => value.ToDecimal()!.IsNotNull() ? value.ToDecimal().ToString()! :
-                                        throw new Exception("Invalid value for column: " + column.ToString()),
-                ColumnsSupportedProd.PrecoVendaVarejo => value.ToDecimal()!.IsNotNull() ? value.ToDecimal().ToString()! :
-                                        throw new Exception("Invalid value for column: " + column.ToString()),
-                ColumnsSupportedProd.PrecoVendaAtacado => value.ToDecimal()!.IsNotNull() ? value.ToDecimal().ToString()! :
-                                        throw new Exception("Invalid value for column: " + column.ToString()),
-                ColumnsSupportedProd.PrecoVendaPromocional => value.ToDecimal()!.IsNotNull() ? value.ToDecimal().ToString()! :
-                                        throw new Exception("Invalid value for column: " + column.ToString()),
+                ColumnsSupportedProd.ValorCustoMedio => value.ToDecimal() ?? throw new Exception("Invalid value for column: " + column.ToString()),
+                ColumnsSupportedProd.PrecoVendaVarejo => value.ToDecimal() ?? throw new Exception("Invalid value for column: " + column.ToString()),
+                ColumnsSupportedProd.PrecoVendaAtacado => value.ToDecimal() ?? throw new Exception("Invalid value for column: " + column.ToString()),
+                ColumnsSupportedProd.PrecoVendaPromocional => value.ToDecimal() ?? throw new Exception("Invalid value for column: " + column.ToString()),
                 ColumnsSupportedProd.Ncm => value.RemoveMarks().CutIfTooLong(8),
                 ColumnsSupportedProd.CSOSN => value.RemoveMarks().CutIfTooLong(3),
                 ColumnsSupportedProd.CEST => value.RemoveMarks().CutIfTooLong(7),
                 ColumnsSupportedProd.ProdCfopSai => value.RemoveMarks().CutIfTooLong(4),
-                ColumnsSupportedProd.Quantidade => value.ToDecimal()!.IsNotNull() ? value.ToDecimal().ToString()! :
-                                        throw new Exception("Invalid value for column: " + column.ToString()),
-                ColumnsSupportedProd.Ativo => value.TryBoolParse()!.IsNotNull() ? value.TryBoolParse()?.ToInt().ToString()! :
-                                        throw new Exception("Invalid value for column: " + column.ToString()),
+                ColumnsSupportedProd.Quantidade => value.ToDecimal() ?? throw new Exception("Invalid value for column: " + column.ToString()),
+                ColumnsSupportedProd.Ativo => value.TryBoolParse()?.ToInt() ?? throw new Exception("Invalid value for column: " + column.ToString()),
                 _ => throw new Exception("Column not implemented in FormatValueForColumnProd()"),
             };
         }
 
-        public static string FormatValueForColumnCli(ColumnsSupportedCli column, string value)
+        public static object FormatValueForColumnCli(ColumnsSupportedCli column, string value)
         {
             return column switch
             {
@@ -59,6 +53,18 @@ namespace BaseConverter.Managers
                                         throw new Exception("Invalid value for column: " + column.ToString()), 
                 _ => throw new Exception("Column not implemented in FormatValueForColumnCli()"),
             };
+        }
+
+        public static string FormatByStringSql(object? value)
+        {
+            if (value == null) { return "NULL"; }
+            if (value is string) { return $"'{value}'"; }
+            if (value is int ) { return $"{value}"; }
+            if (value is decimal ) { return $"{decimal.Parse(value.ToString()!).ToFormatWithDot()}"; }
+            if (value is bool) { return $"{bool.Parse(value.ToString()!).ToInt()}"; }
+            if (value is DateTime) { return $"'{value.ToString()!.ToDateTime()?.ToString("yyyy-MM-dd HH:mm:ss")}'"; }
+
+            else { throw new Exception("Type not implemented in FormatByStringSql()"); }
         }
     }
 }
