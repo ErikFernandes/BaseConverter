@@ -6,10 +6,10 @@ namespace BaseConverter.Extensions
 {
     public static class ProdutoModelExtension
     {
-        public static void SetValueColumn(this ClienteModel model, ColumnsSupportedCli column, object value)
+        public static void SetValueColumn(this ProdutoModel model, ColumnsSupportedProd column, object value)
         {
             foreach (PropertyInfo property in model.GetType().GetProperties())
-            { if (property.Name == column.ToString()) { property.SetValue(model, value); } }
+            { if (property.Name == column.ToString()) { property.SetValue(model, value); break; } }
         }
     }
 }
