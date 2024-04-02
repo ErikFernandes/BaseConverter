@@ -2,6 +2,7 @@
 {
     public class ProdutoModel
     {
+        public int IdProd { get; set; } = 1;
         public int IdCadFilial { get; set; } = 1;
         public string CodBarras { get; set; } = "";
         public string CodBarrasFor { get; set; } = "";
@@ -85,7 +86,7 @@
         public string? Med_CodProdAnvisa { get; set; } = null;
         public string? Med_AnvisaMotivoIsencao { get; set; } = null;
         public decimal Med_PrecoMaxConsumidor { get; set; } = -1.00m;
-        public string? CodBarrasBalanca { get; set; } = "";
+        public string? CodBarrasBalanca { get; set; } = null;
         public int UnidadeBalanca { get; set; } = 0;
         public decimal? CombpGLP { get; set; } = null;
         public decimal? CombpGNn { get; set; } = null;

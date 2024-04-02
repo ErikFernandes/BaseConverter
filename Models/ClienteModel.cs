@@ -2,6 +2,7 @@
 {
     public class ClienteModel
     {
+        public int IdCadCli { get; set; } = 1;
         public int IdCadFilial { get; set; } = 1;
         public int? IdCadFun { get; set; } = null;
         public int? IdCadRep { get; set; } = null;
