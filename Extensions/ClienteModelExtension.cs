@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using BaseConverter.Enums;
+﻿using BaseConverter.Enums;
 using BaseConverter.Models;
+using System.Reflection;
 
 namespace BaseConverter.Extensions
 {

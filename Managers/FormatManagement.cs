@@ -49,7 +49,7 @@ namespace BaseConverter.Managers
                 ColumnsSupportedCli.CpfCnpj => value.RemoveMarks().CutIfTooLong(14),
                 ColumnsSupportedCli.InscEst => value.RemoveMarks().CutIfTooLong(14),
                 ColumnsSupportedCli.DataControl => value.ToDateTime()!.IsNotNull() ? value.ToDateTime()?.ToString("yyyy/MM/dd")! :
-                                        throw new Exception("Invalid value for column: " + column.ToString()), 
+                                        throw new Exception("Invalid value for column: " + column.ToString()),
                 _ => throw new Exception("Column not implemented in FormatValueForColumnCli()"),
             };
         }
@@ -58,8 +58,8 @@ namespace BaseConverter.Managers
         {
             if (value == null) { return "NULL"; }
             if (value is string) { return $"'{value}'"; }
-            if (value is int ) { return $"{value}"; }
-            if (value is decimal ) { return $"{decimal.Parse(value.ToString()!).ToFormatWithDot()}"; }
+            if (value is int) { return $"{value}"; }
+            if (value is decimal) { return $"{decimal.Parse(value.ToString()!).ToFormatWithDot()}"; }
             if (value is bool) { return $"{bool.Parse(value.ToString()!).ToInt()}"; }
             if (value is DateTime) { return $"'{value.ToString()!.ToDateTime()?.ToString("yyyy-MM-dd HH:mm:ss")}'"; }
 

@@ -1,9 +1,9 @@
-﻿using System.Text;
-using System.Reflection;
-using BaseConverter.Enums;
+﻿using BaseConverter.Enums;
+using BaseConverter.Extensions;
 using BaseConverter.Global;
 using BaseConverter.Models;
-using BaseConverter.Extensions;
+using System.Reflection;
+using System.Text;
 
 namespace BaseConverter.Managers
 {
@@ -15,7 +15,7 @@ namespace BaseConverter.Managers
         private static string CreateCommandLineProdutos(ProdutoModel produto, ProdutosQtdModel produtoQtd)
         {
             List<string> values = [];
-            StringBuilder sb = new ();
+            StringBuilder sb = new();
 
             #region Produtos
 
@@ -35,7 +35,7 @@ namespace BaseConverter.Managers
             sb.Append(string.Join(", ", values) + ");");
 
             #endregion
-            
+
             return sb.ToString();
         }
 
@@ -98,7 +98,7 @@ namespace BaseConverter.Managers
                 { GlobalVariables.SelectedColumnsCli[column] = (int)Enum.Parse<ColumnsIndex>(valueEnter); }
             }
         }
-        
+
 
         public static void BuildLineProdutos(string line)
         {
@@ -115,10 +115,10 @@ namespace BaseConverter.Managers
             {
                 if (GlobalVariables.SelectedColumnsProd[column]!.IsNull()) { continue; }
 
-                if (column == ColumnsSupportedProd.Quantidade) 
-                { 
+                if (column == ColumnsSupportedProd.Quantidade)
+                {
                     produtoQtd.Quantidade = lineValues[GlobalVariables.SelectedColumnsProd[column]!.Value].ToDecimal() ?? 0;
-                    continue; 
+                    continue;
                 }
 
                 produto.SetValueColumn(column, FormatManagement.

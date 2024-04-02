@@ -12,8 +12,8 @@ namespace BaseConverter.Extensions
 
         public static string CutIfTooLong(this string input, int maxLength) =>
             input.Length > maxLength ? input[..maxLength] : input;
-        
-        public static bool In(this string input, params string[] values) => 
+
+        public static bool In(this string input, params string[] values) =>
             values.Contains(input);
 
         public static decimal? ToDecimal(this string input)
@@ -41,7 +41,7 @@ namespace BaseConverter.Extensions
             if (formValue.In(["true", "false"])) return formValue == "true";
 
             if (formValue.In(["1", "0"])) return formValue == "1";
-        
+
             return null;
         }
 
@@ -49,7 +49,7 @@ namespace BaseConverter.Extensions
 
         public static string ToPhone(this string txt)
         {
-            string varRet = txt.RemoveAll(["(", ")", "-", " "] );
+            string varRet = txt.RemoveAll(["(", ")", "-", " "]);
             if (!long.TryParse(varRet, out long phoneLong)) return string.Empty;
             varRet = phoneLong.ToString();
             return varRet.Length == 10 ? varRet.Insert(2, "9") : varRet;
