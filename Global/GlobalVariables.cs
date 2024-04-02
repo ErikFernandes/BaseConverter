@@ -12,6 +12,9 @@ namespace BaseConverter.Global
         public static string PathFileClientes { get; set; } = "C:/Conversão/ScriptConversão - Clientes.sql";
         public static string PathFileFornecedores { get; set; } = "C:/Conversão/ScriptConversão - Fornecedores.sql";
 
+        public static int CurrentIdProdutos { get; set; } = 1;
+        public static int CurrentIdProdutosQtd { get; set; } = 1;
+        public static int CurrentIdClientes { get; set; } = 1;
         
         public static StringBuilder StringOutput { get; set; } = new StringBuilder();
 
