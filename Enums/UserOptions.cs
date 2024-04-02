@@ -3,8 +3,7 @@
     public enum TypeConversion
     {
         Produtos = 1,
-        Clientes = 2,
-        Fornecedores = 3
+        Clientes = 2
     }
 
     public enum ColumnsSupportedProd
@@ -42,7 +41,6 @@
         Tel,
         Uf,
         Cidade,
-        CodMunicipio,
         CpfCnpj,
         InscEst,
         DataControl
