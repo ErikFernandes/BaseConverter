@@ -66,11 +66,23 @@ namespace BaseConverter
 
             #region Carregar o arquivo
 
-            string[] lines = File.ReadAllLines(GlobalVariables.PathConversao);
+            string[] lines = FileManagement.GetLines(GlobalVariables.PathConversao);
 
             foreach (string line in lines)
             {
-                string[] values = line.Split(';');
+                switch (GlobalVariables.SelectedType)
+                {
+                    case TypeConversion.Clientes:
+                        ConversionManagement.BuildLineClientes(line);
+                        GlobalVariables.CurrentIdClientes += 1;
+                        break;
+
+                    case TypeConversion.Produtos:
+                        ConversionManagement.BuildLineProdutos(line);
+                        GlobalVariables.CurrentIdProdutos += 1;
+                        GlobalVariables.CurrentIdProdutosQtd += 1;
+                        break;
+                }
             }
 
             #endregion
