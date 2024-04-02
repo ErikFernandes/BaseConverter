@@ -46,7 +46,6 @@ namespace BaseConverter.Managers
                 ColumnsSupportedCli.Tel => value.ToPhone().CutIfTooLong(10),
                 ColumnsSupportedCli.Uf => value.RemoveMarks().CutIfTooLong(2),
                 ColumnsSupportedCli.Cidade => value.RemoveMarks().CutIfTooLong(32),
-                ColumnsSupportedCli.CodMunicipio => value.RemoveMarks().CutIfTooLong(7),
                 ColumnsSupportedCli.CpfCnpj => value.RemoveMarks().CutIfTooLong(14),
                 ColumnsSupportedCli.InscEst => value.RemoveMarks().CutIfTooLong(14),
                 ColumnsSupportedCli.DataControl => value.ToDateTime()!.IsNotNull() ? value.ToDateTime()?.ToString("yyyy/MM/dd")! :
