@@ -159,6 +159,9 @@ namespace BaseConverter.Managers
                     FormatValueForColumnProd(column, lineValues[GlobalVariables.SelectedColumnsProd[column]!.Value]));
             }
 
+            GlobalVariables.AllDepartamentos.AddIfNotExists(produto.Departamento);
+            GlobalVariables.AllUnidades.AddIfNotExists(produto.Unidade);
+            GlobalVariables.AllMarcas.AddIfNotExists(produto.Marca);
             GlobalVariables.StringOutput.AppendLine(CreateCommandLineProdutos(produto, produtoQtd));
         }
 

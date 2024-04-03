@@ -31,6 +31,9 @@ namespace BaseConverter.Global
         public static int CurrentIdProdutos { get; set; } = 1;
         public static int CurrentIdProdutosQtd { get; set; } = 1;
         public static int CurrentIdClientes { get; set; } = 1;
+        public static int CurrentIdDepartamentos { get; set; } = 1;
+        public static int CurrentIdUnidades { get; set; } = 1;
+        public static int CurrentIdMarcas { get; set; } = 1;
 
         #endregion
 
