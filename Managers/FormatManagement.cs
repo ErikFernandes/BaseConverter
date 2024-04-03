@@ -5,6 +5,13 @@ namespace BaseConverter.Managers
 {
     public static class FormatManagement
     {
+        /// <summary>
+        /// Formata um valor para o padrão esperado na coluna <paramref name="column"/>.
+        /// </summary>
+        /// <param name="column">Coluna de destino.</param>
+        /// <param name="value">Valor a ser formatado.</param>
+        /// <returns>Valor formatado do tipo esperado na coluna <paramref name="column"/>.</returns>
+        /// <exception cref="Exception">Erro caso a coluna passada não esteja implementada.</exception>
         public static object FormatValueForColumnProd(ColumnsSupportedProd column, string value)
         {
             return column switch
@@ -30,6 +37,13 @@ namespace BaseConverter.Managers
             };
         }
 
+        /// <summary>
+        /// Formata um valor para o padrão esperado na coluna <paramref name="column"/>.
+        /// </summary>
+        /// <param name="column">Coluna de destino.</param>
+        /// <param name="value">Valor a ser formatado.</param>
+        /// <returns>Valor formatado do tipo esperado na coluna <paramref name="column"/>.</returns>
+        /// <exception cref="Exception">Erro caso a coluna passada não esteja implementada.</exception>
         public static object FormatValueForColumnCli(ColumnsSupportedCli column, string value)
         {
             return column switch
@@ -48,12 +62,17 @@ namespace BaseConverter.Managers
                 ColumnsSupportedCli.Cidade => value.RemoveMarks().CutIfTooLong(32),
                 ColumnsSupportedCli.CpfCnpj => value.RemoveMarks().CutIfTooLong(14),
                 ColumnsSupportedCli.InscEst => value.RemoveMarks().CutIfTooLong(14),
-                ColumnsSupportedCli.DataControl => value.ToDateTime()!.IsNotNull() ? value.ToDateTime()?.ToString("yyyy/MM/dd")! :
-                                        throw new Exception("Invalid value for column: " + column.ToString()),
+                ColumnsSupportedCli.DataControl => value.ToDateTime() ?? throw new Exception("Invalid value for column: " + column.ToString()),
                 _ => throw new Exception("Column not implemented in FormatValueForColumnCli()"),
             };
         }
 
+        /// <summary>
+        /// Formata um valor para ser inserido em uma string de INSERT.
+        /// </summary>
+        /// <param name="value">Valor a ser formatado.</param>
+        /// <returns>Valor string formatado para o INSERT.</returns>
+        /// <exception cref="Exception">Caso o type do valor seja inválido.</exception>
         public static string FormatByStringSql(object? value)
         {
             if (value == null) { return "NULL"; }
