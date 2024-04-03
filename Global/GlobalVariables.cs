@@ -36,7 +36,7 @@ namespace BaseConverter.Global
 
 
         /// <summary>
-        /// List of records composing the product registry and need to be inserted into other tables
+        /// List of records composing the product registry and need to be inserted into other tables.
         /// </summary>
         #region Dependents
 
