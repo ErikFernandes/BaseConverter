@@ -12,7 +12,7 @@ namespace BaseConverter
             Console.WriteLine("Bem vindo ao Conversor de Banco!\n");
             Console.WriteLine("Selecione uma opção de conversão:");
 
-            #region Seleção de opções
+            #region Option selection
 
             string options = Enum.GetValues(typeof(TypeConversion)).Cast<TypeConversion>().
                 Select(x => (int)x + " - " + x.ToString() + "\n").Aggregate((x, y) => x + y);
@@ -31,7 +31,7 @@ namespace BaseConverter
 
             #endregion
 
-            #region Nome do arquivo
+            #region File name
 
             Console.WriteLine($"Digite o nome do arquivo CSV dentro da pasta {GlobalVariables.PathConversao} para a conversão: ");
 
@@ -46,7 +46,7 @@ namespace BaseConverter
 
             #endregion
 
-            #region Associação das colunas
+            #region Column association
 
             Console.WriteLine("Associe as colunas com a letra correspondete no arquivo: ");
 
@@ -64,7 +64,7 @@ namespace BaseConverter
 
             #endregion
 
-            #region Carregar o arquivo
+            #region Load file
 
             string[] lines = FileManagement.GetLines(GlobalVariables.PathConversao);
 
