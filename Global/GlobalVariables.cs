@@ -36,6 +36,17 @@ namespace BaseConverter.Global
 
 
         /// <summary>
+        /// List of records composing the product registry and need to be inserted into other tables
+        /// </summary>
+        #region Dependents
+
+        public static List<string> AllDepartamentos { get; set; } = [];
+        public static List<string> AllUnidades { get; set; } = [];
+        public static List<string> AllMarcas { get; set; } = [];
+
+        #endregion
+
+        /// <summary>
         /// <see cref="StringBuilder"/> to store output data for printing in the file.
         /// </summary>
         public static StringBuilder StringOutput { get; set; } = new StringBuilder();
