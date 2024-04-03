@@ -3,10 +3,10 @@
     public static class DecimalExtension
     {
         /// <summary>
-        /// Converte um valor <see cref="decimal"/> para um valor <see cref="string"/> substituindo "," por ".".
+        /// Converts a <see cref="decimal"/> value to a <see cref="string"/> value by replacing "," with ".".
         /// </summary>
-        /// <param name="value">Valor a ser convertido.</param>
-        /// <returns><paramref name="value"/> convertido para <see cref="string"/> com "," substituido por ".".</returns>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns><paramref name="value"/> converted to a <see cref="string"/> with "," replaced by ".".</returns>
         public static string ToFormatWithDot(this decimal value) => value.ToString().Replace(",", ".");
     }
 }

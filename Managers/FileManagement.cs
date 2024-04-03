@@ -5,12 +5,12 @@ namespace BaseConverter.Managers
     public static class FileManagement
     {
         /// <summary>
-        /// Lê todas as linhas do arquivo localizado em <paramref name="path"/>. <br/>
-        /// Caso ocorra um erro <see cref="IOException"/> o programa ficará em loop de tentativas a cada 2 segundos. <br/>
-        /// Caso ocorra qualquer outro tipo de erro, o programa irá mostrar o erro para o usuário e retornar um array vazio.
+        /// Reads all lines from the file located at <paramref name="path"/>. <br/>
+        /// If an <see cref="IOException"/> occurs, the program will enter a retry loop every 2 seconds. <br/>
+        /// If any other type of error occurs, the program will display the error to the user and return an empty array.
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">Path to the file.</param>
+        /// <returns>Lines of the file if no unexpected error occurs.</returns>
         public static string[] GetLines(string path)
         {
             try
@@ -25,7 +25,7 @@ namespace BaseConverter.Managers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("O seguinte erro ocorreu: " + ex.Message);
+                Console.WriteLine("The following error occurred: " + ex.Message);
                 return [];
             }
         }

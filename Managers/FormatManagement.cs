@@ -6,12 +6,12 @@ namespace BaseConverter.Managers
     public static class FormatManagement
     {
         /// <summary>
-        /// Formata um valor para o padrão esperado na coluna <paramref name="column"/>.
+        /// Formats a value to the expected pattern in the <paramref name="column"/> column.
         /// </summary>
-        /// <param name="column">Coluna de destino.</param>
-        /// <param name="value">Valor a ser formatado.</param>
-        /// <returns>Valor formatado do tipo esperado na coluna <paramref name="column"/>.</returns>
-        /// <exception cref="Exception">Erro caso a coluna passada não esteja implementada.</exception>
+        /// <param name="column">Destination column.</param>
+        /// <param name="value">Value to be formatted.</param>
+        /// <returns>Formatted value of the expected type in the <paramref name="column"/> column.</returns>
+        /// <exception cref="Exception">Error if the passed column is not implemented.</exception>
         public static object FormatValueForColumnProd(ColumnsSupportedProd column, string value)
         {
             return column switch
@@ -38,12 +38,12 @@ namespace BaseConverter.Managers
         }
 
         /// <summary>
-        /// Formata um valor para o padrão esperado na coluna <paramref name="column"/>.
+        /// Formats a value to the expected pattern in the <paramref name="column"/> column.
         /// </summary>
-        /// <param name="column">Coluna de destino.</param>
-        /// <param name="value">Valor a ser formatado.</param>
-        /// <returns>Valor formatado do tipo esperado na coluna <paramref name="column"/>.</returns>
-        /// <exception cref="Exception">Erro caso a coluna passada não esteja implementada.</exception>
+        /// <param name="column">Destination column.</param>
+        /// <param name="value">Value to be formatted.</param>
+        /// <returns>Formatted value of the expected type in the <paramref name="column"/> column.</returns>
+        /// <exception cref="Exception">Error if the passed column is not implemented.</exception>
         public static object FormatValueForColumnCli(ColumnsSupportedCli column, string value)
         {
             return column switch
@@ -68,11 +68,11 @@ namespace BaseConverter.Managers
         }
 
         /// <summary>
-        /// Formata um valor para ser inserido em uma string de INSERT.
+        /// Formats a value to be inserted into an INSERT string.
         /// </summary>
-        /// <param name="value">Valor a ser formatado.</param>
-        /// <returns>Valor string formatado para o INSERT.</returns>
-        /// <exception cref="Exception">Caso o type do valor seja inválido.</exception>
+        /// <param name="value">Value to be formatted.</param>
+        /// <returns>Formatted string value for INSERT.</returns>
+        /// <exception cref="Exception">If the type of the value is invalid.</exception>
         public static string FormatByStringSql(object? value)
         {
             if (value == null) { return "NULL"; }

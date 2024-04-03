@@ -3,18 +3,18 @@
     public static class ObjectExtensions
     {
         /// <summary>
-        /// Verifica se o objeto é nulo.
+        /// Checks if the object is null.
         /// </summary>
-        /// <param name="obj">Objeto a ser verificado.</param>
-        /// <returns>True se o objeto for nulo.</returns>
+        /// <param name="obj">Object to be checked.</param>
+        /// <returns>True if the object is null.</returns>
         public static bool IsNull(this object obj) =>
             obj is null;
 
         /// <summary>
-        /// Verifica se o objeto não é nulo.
+        /// Checks if the object is not null.
         /// </summary>
-        /// <param name="obj">Objeto a ser verificado.</param>
-        /// <returns>True se o objeto não for nulo.</returns>
+        /// <param name="obj">Object to be checked.</param>
+        /// <returns>True if the object is not null.</returns>
         public static bool IsNotNull(this object obj) =>
             obj is not null;
     }

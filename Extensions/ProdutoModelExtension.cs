@@ -7,12 +7,12 @@ namespace BaseConverter.Extensions
     public static class ProdutoModelExtension
     {
         /// <summary>
-        /// Atribui um valor a uma propriedade de um <see cref="ProdutoModel"/> que corresponde a
-        /// <paramref name="column"/> do banco.
+        /// Assigns a value to a property of a <see cref="ProdutoModel"/> that corresponds to
+        /// the <paramref name="column"/> of the database.
         /// </summary>
-        /// <param name="model">Modelo a ser alterado.</param>
-        /// <param name="column">Coluna que deseja alterar.</param>
-        /// <param name="value">Novo valor.</param>
+        /// <param name="model">Model to be modified.</param>
+        /// <param name="column">Column to be changed.</param>
+        /// <param name="value">New value.</param>
         public static void SetValueColumn(this ProdutoModel model, ColumnsSupportedProd column, object value)
         {
             foreach (PropertyInfo property in model.GetType().GetProperties())

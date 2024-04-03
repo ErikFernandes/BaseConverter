@@ -6,13 +6,13 @@ namespace BaseConverter.Global
     public static class GlobalVariables
     {
         /// <summary>
-        /// Caminho do arquivo .csv usado na conversão.
+        /// Path of the .csv file used in the conversion.
         /// </summary>
         public static string PathConversao { get; set; } = "C:/Conversão/";
 
 
         /// <summary>
-        /// Caminho dos arquivos de saída.
+        /// Path of the output files.
         /// </summary>
         #region Caminhos dos arquivos de saída
 
@@ -24,7 +24,7 @@ namespace BaseConverter.Global
 
 
         /// <summary> 
-        /// Propriedades utilizadas para gerar os IDs das tabelas que não possuem autoincremento.
+        /// Properties used to generate IDs for tables that do not have auto-increment.
         /// </summary>
         #region Ids
 
@@ -36,26 +36,26 @@ namespace BaseConverter.Global
 
 
         /// <summary>
-        /// <see cref="StringBuilder"/> para armazenar os dados de saida para impressão no arquivo.
+        /// <see cref="StringBuilder"/> to store output data for printing in the file.
         /// </summary>
         public static StringBuilder StringOutput { get; set; } = new StringBuilder();
 
 
         /// <summary>
-        /// Tipo de conversão selecionado pelo usuário.
+        /// Type of conversion selected by the user.
         /// </summary>
         public static TypeConversion SelectedType { get; set; }
 
 
         /// <summary>
-        /// Colunas do arquivo .csv de produtos selecionadas pelo usuário.
+        /// Columns of the .csv file of products selected by the user.
         /// </summary>
         public static Dictionary<ColumnsSupportedProd, int?> SelectedColumnsProd { get; set; } =
             Enum.GetValues(typeof(ColumnsSupportedProd)).Cast<ColumnsSupportedProd>().
                 Select(x => new KeyValuePair<ColumnsSupportedProd, int?>(x, null)).ToDictionary(x => x.Key, x => x.Value);
 
         /// <summary>
-        /// Colunas do arquivo .csv de clientes selecionadas pelo usuário.
+        /// Columns of the .csv file of clients selected by the user.
         /// </summary>
         public static Dictionary<ColumnsSupportedCli, int?> SelectedColumnsCli { get; set; } =
             Enum.GetValues(typeof(ColumnsSupportedCli)).Cast<ColumnsSupportedCli>().
