@@ -1,6 +1,6 @@
 ﻿namespace BaseConverter.Models
 {
-    public class MarcasModel
+    public class MarcaModel
     {
         public int IdMarca { get; set; } = 1;
         public string Marca { get; set; } = "Diversas";
