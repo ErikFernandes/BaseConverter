@@ -1,6 +1,6 @@
 ﻿using BaseConverter.Enums;
 using BaseConverter.Global;
-using BaseConverter.Managers;
+using BaseConverter.Management;
 
 namespace BaseConverter
 {

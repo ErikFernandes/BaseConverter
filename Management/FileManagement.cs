@@ -1,6 +1,6 @@
 ﻿using BaseConverter.Global;
 
-namespace BaseConverter.Managers
+namespace BaseConverter.Management
 {
     public static class FileManagement
     {

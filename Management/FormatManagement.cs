@@ -1,7 +1,7 @@
 ﻿using BaseConverter.Enums;
 using BaseConverter.Extensions;
 
-namespace BaseConverter.Managers
+namespace BaseConverter.Management
 {
     public static class FormatManagement
     {

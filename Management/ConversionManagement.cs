@@ -5,7 +5,7 @@ using BaseConverter.Models;
 using System.Reflection;
 using System.Text;
 
-namespace BaseConverter.Managers
+namespace BaseConverter.Management
 {
     public static class ConversionManagement
     {
