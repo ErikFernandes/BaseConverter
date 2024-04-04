@@ -80,7 +80,7 @@ namespace BaseConverter.Managers
             if (value is int) { return $"{value}"; }
             if (value is decimal) { return $"{decimal.Parse(value.ToString()!).ToFormatWithDot()}"; }
             if (value is bool) { return $"{bool.Parse(value.ToString()!).ToInt()}"; }
-            if (value is DateTime) { return $"'{value.ToString()!.ToDateTime()?.ToString("yyyy-MM-dd HH:mm:ss")}'"; }
+            if (value is DateTime) { return $"'{DateTime.Parse(value.ToString()!):yyyy-MM-dd HH:mm:ss}'"; }
 
             else { throw new Exception("Type not implemented in FormatByStringSql()"); }
         }
