@@ -72,6 +72,78 @@ namespace BaseConverter.Managers
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Creates an INSERT statement for the tables <see cref="Departamentos"/> and <see cref="Categorias"/>.
+        /// </summary>
+        /// <param name="depModel">Model filled with column values.</param>
+        /// <param name="catModel">Model filled with column values.</param>
+        /// <returns>String containing the INSERT for both tables.</returns>
+        private static string CreateCommandLineDepartamentos(DepartamentoModel depModel, CategoriasModel catModel)
+        {
+            List<string> values = [];
+            StringBuilder sb = new();
+
+            #region DicDepartamentos
+
+            sb.Append("INSERT INTO DicDepartamentos VALUES(");
+            foreach (PropertyInfo property in depModel.GetType().GetProperties())
+            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(depModel))); }
+            sb.Append(string.Join(", ", values) + "); \n");
+            values.Clear();
+
+            #endregion
+
+            #region DicCategorias
+
+            sb.Append("INSERT INTO DicCategorias VALUES(");
+            foreach (PropertyInfo property in catModel.GetType().GetProperties())
+            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(catModel))); }
+            sb.Append(string.Join(", ", values) + "); \n");
+
+            #endregion
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Creates an INSERT statement for the table <see cref="Unidades"/>
+        /// </summary>
+        /// <param name="unModel">Model filled with column values.</param>
+        /// <returns>String containing the INSERT for the table.</returns>
+        private static string CreateCommandLineUnidades(UnidadeModel unModel)
+        {
+            List<string> values = [];
+            StringBuilder sb = new();
+
+            #region DicUnidades
+
+            sb.Append("INSERT INTO DicUnidades VALUES(");
+            foreach (PropertyInfo property in unModel.GetType().GetProperties())
+            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(unModel))); }
+            sb.Append(string.Join(", ", values) + "); \n");
+
+            #endregion
+        
+            return sb.ToString();
+        }
+
+        private static string CreateCommandLineMarcas(MarcaModel marcaModel)
+        {
+            List<string> values = [];
+            StringBuilder sb = new();
+
+            #region DicUnidades
+
+            sb.Append("INSERT INTO DicMarcas VALUES(");
+            foreach (PropertyInfo property in marcaModel.GetType().GetProperties())
+            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(marcaModel))); }
+            sb.Append(string.Join(", ", values) + "); \n");
+
+            #endregion
+
+            return sb.ToString();
+        }
+
 
         /// <summary>
         /// Receives user input through the <see cref="Console"/> and updates the <see cref="GlobalVariables.SelectedColumnsProd"/> <br/>
@@ -143,6 +215,7 @@ namespace BaseConverter.Managers
             // If the used table has auto-increment, the ID does not need to be added in the 
             // database models.
             produto.IdProd = GlobalVariables.CurrentIdProdutos;
+            produtoQtd.IdProd = GlobalVariables.CurrentIdProdutos;
             produtoQtd.IdProdQtd = GlobalVariables.CurrentIdProdutosQtd;
 
             foreach (ColumnsSupportedProd column in GlobalVariables.SelectedColumnsProd.Keys)
@@ -189,6 +262,71 @@ namespace BaseConverter.Managers
             }
 
             GlobalVariables.StringOutput.AppendLine(CreateCommandLineClientes(cliente));
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void ShutWithDependentsProdutos()
+        {
+            GlobalVariables.StringOutput.AppendLine();
+
+            #region Departamentos/Categorias
+
+            foreach (string dep in GlobalVariables.AllDepartamentos)
+            {
+                DepartamentoModel depModel = new()
+                {
+                    IdDepartamento = GlobalVariables.CurrentIdDepartamentos,
+                    Departamento = dep
+                };
+
+                CategoriasModel catModel = new()
+                {
+                    IdCategorias = GlobalVariables.CurrentIdCategorias,
+                    Departamento = dep
+                };
+
+                GlobalVariables.StringOutput.Append(CreateCommandLineDepartamentos(depModel, catModel));
+
+                GlobalVariables.CurrentIdCategorias++;
+            }
+
+            #endregion
+
+            #region Unidades
+
+            foreach (string un in GlobalVariables.AllUnidades)
+            {
+                UnidadeModel unModel = new()
+                {
+                    IdUnidade = GlobalVariables.CurrentIdUnidades,
+                    Unidade = un
+                };
+
+                GlobalVariables.StringOutput.Append(CreateCommandLineUnidades(unModel));
+
+                GlobalVariables.CurrentIdUnidades++;
+            }
+
+            #endregion
+
+            #region DicMarcas
+
+            foreach (string marca in GlobalVariables.AllMarcas)
+            {
+                MarcaModel marcasModel = new()
+                {
+                    IdMarca = GlobalVariables.CurrentIdMarcas,
+                    Marca = marca
+                };
+
+                GlobalVariables.StringOutput.Append(CreateCommandLineMarcas(marcasModel));
+
+                GlobalVariables.CurrentIdMarcas++;
+            }
+
+            #endregion
         }
     }
 }

@@ -74,15 +74,32 @@ namespace BaseConverter
                 {
                     case TypeConversion.Clientes:
                         ConversionManagement.BuildLineClientes(line);
-                        GlobalVariables.CurrentIdClientes += 1;
+                        GlobalVariables.CurrentIdClientes++;
                         break;
 
                     case TypeConversion.Produtos:
                         ConversionManagement.BuildLineProdutos(line);
-                        GlobalVariables.CurrentIdProdutos += 1;
-                        GlobalVariables.CurrentIdProdutosQtd += 1;
+                        GlobalVariables.CurrentIdProdutos++;
+                        GlobalVariables.CurrentIdProdutosQtd++;
                         break;
                 }
+            }
+
+            if (GlobalVariables.SelectedType == TypeConversion.Produtos) { ConversionManagement.ShutWithDependentsProdutos(); }
+
+            #endregion
+
+            #region Write file
+
+            switch (GlobalVariables.SelectedType)
+            {
+                case TypeConversion.Clientes:
+                    FileManagement.WriteFileClientes(GlobalVariables.StringOutput.ToString());
+                    break;
+
+                case TypeConversion.Produtos:
+                    FileManagement.WriteFileProdutos(GlobalVariables.StringOutput.ToString());
+                    break;
             }
 
             #endregion
