@@ -17,9 +17,11 @@
         public decimal pIpi { get; set; } = 0.00m;
         public decimal ValorCustoFinal { get; set; } = 0.00m;
         public decimal? ValorFrete { get; set; } = null;
-        public decimal PercentualLucroVarejo { get; set; } = 0.00m;
+        public decimal PercentualLucroVarejo => 
+            Math.Round((PrecoVendaVarejo - ValorCustoMedio) * 100 / ValorCustoMedio, 2);
         public decimal PrecoVendaVarejo { get; set; } = 0.00m;
-        public decimal PercentualLucroAtacado { get; set; } = 0.00m;
+        public decimal PercentualLucroAtacado => 
+            Math.Round((PrecoVendaAtacado - ValorCustoMedio) * 100 / ValorCustoMedio, 2);
         public decimal PrecoVendaAtacado { get; set; } = 0.00m;
         public decimal Peso { get; set; } = 0.00m;
         public decimal IcmsAliquota { get; set; } = 0.00m;
@@ -93,7 +95,8 @@
         public decimal? CombvPart { get; set; } = null;
         public string ExTipi { get; set; } = string.Empty;
         public decimal PrecoVendaPromocional { get; set; } = 0.00m;
-        public decimal PercentualLucroPromocional { get; set; } = 0.00m;
+        public decimal PercentualLucroPromocional => 
+            Math.Round((PrecoVendaPromocional - ValorCustoMedio) * 100 / ValorCustoMedio, 2);
 
 
     }
