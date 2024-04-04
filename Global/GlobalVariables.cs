@@ -18,7 +18,6 @@ namespace BaseConverter.Global
 
         public static string PathFileProdutos { get; set; } = "C:/Conversão/ScriptConversão - Produtos.sql";
         public static string PathFileClientes { get; set; } = "C:/Conversão/ScriptConversão - Clientes.sql";
-        public static string PathFileFornecedores { get; set; } = "C:/Conversão/ScriptConversão - Fornecedores.sql";
 
         #endregion
 
@@ -32,6 +31,7 @@ namespace BaseConverter.Global
         public static int CurrentIdProdutosQtd { get; set; } = 1;
         public static int CurrentIdClientes { get; set; } = 1;
         public static int CurrentIdDepartamentos { get; set; } = 1;
+        public static int CurrentIdCategorias { get; set; } = 1;
         public static int CurrentIdUnidades { get; set; } = 1;
         public static int CurrentIdMarcas { get; set; } = 1;
 
