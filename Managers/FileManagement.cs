@@ -4,6 +4,14 @@ namespace BaseConverter.Managers
 {
     public static class FileManagement
     {
+        private static void WriteFile(string path, string content)
+        {
+            using FileStream fileStream = new(path, FileMode.Create);
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(content);
+
+            fileStream.Write(bytes, 0, bytes.Length);
+        }
+
         /// <summary>
         /// Reads all lines from the file located at <paramref name="path"/>. <br/>
         /// If an <see cref="IOException"/> occurs, the program will enter a retry loop every 2 seconds. <br/>
@@ -29,5 +37,11 @@ namespace BaseConverter.Managers
                 return [];
             }
         }
+
+        public static void WriteFileClientes(string content) => 
+            WriteFile(GlobalVariables.PathFileClientes, content);
+
+        public static void WriteFileProdutos(string content) =>
+            WriteFile(GlobalVariables.PathFileProdutos, content);
     }
 }
