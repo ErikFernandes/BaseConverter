@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text;
 
 namespace BaseConverter.Extensions
 {
@@ -81,6 +82,23 @@ namespace BaseConverter.Extensions
             if (formValue.In(["1", "0"])) return formValue == "1";
 
             return null;
+        }
+
+        public static string RemoveAccents(this string input)
+        {
+            var normString = input.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder();
+
+            foreach (var c in normString.EnumerateRunes())
+            {
+                var unicodeCategory = Rune.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return sb.ToString().Normalize(NormalizationForm.FormC);
         }
 
         #region Format
