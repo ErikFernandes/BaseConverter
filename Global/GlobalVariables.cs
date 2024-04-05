@@ -8,7 +8,7 @@ namespace BaseConverter.Global
         /// <summary>
         /// Path of the .csv file used in the conversion.
         /// </summary>
-        public static string PathConversao { get; set; } = "C:/Conversão/";
+        public static string PathConversao { get; set; } = "C:\\Conversão\\";
 
 
         /// <summary>
@@ -16,8 +16,8 @@ namespace BaseConverter.Global
         /// </summary>
         #region Caminhos dos arquivos de saída
 
-        public static string PathFileProdutos { get; set; } = "C:/Conversão/ScriptConversão - Produtos.sql";
-        public static string PathFileClientes { get; set; } = "C:/Conversão/ScriptConversão - Clientes.sql";
+        public static string PathFileProdutos { get; set; } = "C:\\Conversão\\ScriptConversão - Produtos.sql";
+        public static string PathFileClientes { get; set; } = "C:\\Conversão\\ScriptConversão - Clientes.sql";
 
         #endregion
 

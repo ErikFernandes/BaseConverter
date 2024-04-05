@@ -67,6 +67,7 @@ namespace BaseConverter.Management
             };
         }
 
+
         /// <summary>
         /// Formats a value to be inserted into an INSERT string.
         /// </summary>
