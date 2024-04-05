@@ -4,6 +4,11 @@ namespace BaseConverter.Management
 {
     public static class FileManagement
     {
+        /// <summary>
+        /// Writes <paramref name="content"/> to the file located at <paramref name="path"/>.
+        /// </summary>
+        /// <param name="path">Path to the file.</param>
+        /// <param name="content">Content to be written.</param>
         private static void WriteFile(string path, string content)
         {
             using FileStream fileStream = new(path, FileMode.Create);
@@ -23,24 +28,33 @@ namespace BaseConverter.Management
         {
             try
             {
-                return File.ReadAllLines(GlobalVariables.PathConversao);
-            }
-            catch (Exception ex) when (ex is IOException)
-            {
-                Console.WriteLine("Provavelmente o arquivo está sendo usado em outro programa. Por favor, feche-o.");
-                Thread.Sleep(2000);
-                return GetLines(path);
+                return File.ReadAllLines(path);
             }
             catch (Exception ex)
             {
+                if (ex is IOException && ex.Message.Contains("because it is being used by another process."))
+                {
+                    Console.WriteLine("Provavelmente o arquivo está sendo usado em outro programa. Por favor, feche-o.");
+                    Thread.Sleep(2000);
+                    return GetLines(path);
+                }
+
                 Console.WriteLine("The following error occurred: " + ex.Message);
                 return [];
             }
         }
 
+        /// <summary>
+        /// Writes <paramref name="content"/> to the file located at <see cref="GlobalVariables.PathFileClientes"/>.
+        /// </summary>
+        /// <param name="content">Content to be written.</param>
         public static void WriteFileClientes(string content) => 
             WriteFile(GlobalVariables.PathFileClientes, content);
 
+        /// <summary>
+        /// Writes <paramref name="content"/> to the file located at <see cref="GlobalVariables.PathFileProdutos"/>.
+        /// </summary>
+        /// <param name="content">Content to be written.</param>
         public static void WriteFileProdutos(string content) =>
             WriteFile(GlobalVariables.PathFileProdutos, content);
     }
