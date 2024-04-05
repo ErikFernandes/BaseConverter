@@ -18,131 +18,97 @@ namespace BaseConverter.Management
             l != string.Empty && (l.Length > 1 || !Enum.IsDefined(typeof(ColumnsIndex), l));
 
         /// <summary>
-        /// Creates an INSERT statement for the tables <see cref="Produtos"/> and <see cref="ProdutosQtd"/>.
+        /// Creates an INSERT statement for the table <paramref name="tableName"/> with the values of <paramref name="model"/>.
+        /// </summary>
+        /// <param name="tableName">Table name.</param>
+        /// <param name="model">Model filled with column values.</param>
+        /// <returns>String containing the INSERT for the table.</returns>
+        private static string BuildSqlInsertStatement(string tableName, object model)
+        {
+            List<string> values = [];
+            StringBuilder sb = new();
+
+            sb.Append($"INSERT INTO {tableName} VALUES(");
+            foreach (PropertyInfo property in model.GetType().GetProperties())
+            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(model))); }
+            sb.Append(string.Join(", ", values) + "); \n");
+            values.Clear();
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Creates an UPDATE statement for the table <paramref name="tableName"/> with the values of <paramref name="model"/>.
+        /// </summary>
+        /// <param name="tableName">Table name.</param>
+        /// <param name="model">Model filled with column values.</param>
+        /// <returns>String containing the UPDATE for the table.</returns>
+        private static string BuildSqlUpdateStatement(string tableName, object model)
+        {
+            List<string> values = [];
+            StringBuilder sb = new();
+
+            sb.Append($"UPDATE {tableName} SET ");
+            foreach (PropertyInfo property in model.GetType().GetProperties())
+            { values.Add($"{property.Name} = {FormatManagement.FormatByStringSql(property.GetValue(model))}"); }
+            sb.Append(string.Join(", ", values) + "; \n");
+
+            return sb.ToString();
+
+        }
+
+
+
+        /// <summary>
+        /// Creates an INSERT statement for the tables <see cref="ProdutoModel"/> and <see cref="ProdutosQtdModel"/>.
         /// </summary>
         /// <param name="produto">Model filled with column values.</param>
         /// <param name="produtoQtd">Model filled with column values.</param>
         /// <returns>String containing the INSERT for both tables.</returns>
-        private static string CreateCommandLineProdutos(ProdutoModel produto, ProdutosQtdModel produtoQtd)
-        {
-            List<string> values = [];
-            StringBuilder sb = new();
-
-            #region Produtos
-
-            sb.Append("INSERT INTO Produtos VALUES(");
-            foreach (PropertyInfo property in produto.GetType().GetProperties())
-            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(produto))); }
-            sb.Append(string.Join(", ", values) + "); \n");
-            values.Clear();
-
-            #endregion
-
-            #region ProdutosQtd
-
-            sb.Append("INSERT INTO ProdutosQtd VALUES(");
-            foreach (PropertyInfo property in produtoQtd.GetType().GetProperties())
-            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(produtoQtd))); }
-            sb.Append(string.Join(", ", values) + ");");
-
-            #endregion
-
-            return sb.ToString();
-        }
+        private static string CreateCommandLineProdutos(ProdutoModel produto, ProdutosQtdModel produtoQtd) =>
+            BuildSqlInsertStatement("Produtos", produto) + BuildSqlInsertStatement("ProdutosQtd", produtoQtd);
 
         /// <summary>
-        /// Creates an INSERT statement for the table <see cref="CadCli"/>.
+        /// Creates an INSERT statement for the table <see cref="ClienteModel"/>.
         /// </summary>
         /// <param name="cliente">Model filled with column values.</param>
         /// <returns>String containing the INSERT for the table.</returns>
-        private static string CreateCommandLineClientes(ClienteModel cliente)
-        {
-            List<string> values = [];
-            StringBuilder sb = new();
-
-            #region CadCli
-
-            sb.Append("INSERT INTO CadCli VALUES(");
-            foreach (PropertyInfo property in cliente.GetType().GetProperties())
-            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(cliente))); }
-            sb.Append(string.Join(", ", values) + "); \n");
-
-            #endregion
-
-            return sb.ToString();
-        }
+        private static string CreateCommandLineClientes(ClienteModel cliente) =>
+            BuildSqlInsertStatement("CadCli", cliente);
 
         /// <summary>
-        /// Creates an INSERT statement for the tables <see cref="Departamentos"/> and <see cref="Categorias"/>.
+        /// Creates an INSERT statement for the tables <see cref="DepartamentoModel"/> and <see cref="CategoriasModel"/>.
         /// </summary>
         /// <param name="depModel">Model filled with column values.</param>
         /// <param name="catModel">Model filled with column values.</param>
         /// <returns>String containing the INSERT for both tables.</returns>
         private static string CreateCommandLineDepartamentos(DepartamentoModel depModel, CategoriasModel catModel)
-        {
-            List<string> values = [];
-            StringBuilder sb = new();
-
-            #region DicDepartamentos
-
-            sb.Append("INSERT INTO DicDepartamentos VALUES(");
-            foreach (PropertyInfo property in depModel.GetType().GetProperties())
-            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(depModel))); }
-            sb.Append(string.Join(", ", values) + "); \n");
-            values.Clear();
-
-            #endregion
-
-            #region DicCategorias
-
-            sb.Append("INSERT INTO DicCategorias VALUES(");
-            foreach (PropertyInfo property in catModel.GetType().GetProperties())
-            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(catModel))); }
-            sb.Append(string.Join(", ", values) + "); \n");
-
-            #endregion
-
-            return sb.ToString();
-        }
+            => BuildSqlInsertStatement("DicDepartamentos", depModel) + BuildSqlInsertStatement("DicCategorias", catModel);
 
         /// <summary>
-        /// Creates an INSERT statement for the table <see cref="Unidades"/>
+        /// Creates an INSERT statement for the table <see cref="UnidadeModel"/>
         /// </summary>
         /// <param name="unModel">Model filled with column values.</param>
         /// <returns>String containing the INSERT for the table.</returns>
-        private static string CreateCommandLineUnidades(UnidadeModel unModel)
-        {
-            List<string> values = [];
-            StringBuilder sb = new();
+        private static string CreateCommandLineUnidades(UnidadeModel unModel) =>
+            BuildSqlInsertStatement("DicUnidades", unModel);
 
-            #region DicUnidades
+        /// <summary>
+        /// Creates an INSERT statement for the table <see cref="MarcaModel"/>
+        /// </summary>
+        /// <param name="marcaModel">Model filled with column values.</param>
+        /// <returns>String containing the INSERT for the table.</returns>
+        private static string CreateCommandLineMarcas(MarcaModel marcaModel) =>
+            BuildSqlInsertStatement("DicMarcas", marcaModel);
 
-            sb.Append("INSERT INTO DicUnidades VALUES(");
-            foreach (PropertyInfo property in unModel.GetType().GetProperties())
-            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(unModel))); }
-            sb.Append(string.Join(", ", values) + "); \n");
+        /// <summary>
+        /// Creates an UPDATE statement for the table <see cref="CodigosModel"/>
+        /// </summary>
+        /// <param name="codModel">Model filled with column values.</param>
+        /// <returns>String containing the INSERT for the table.</returns>
+        private static string CreateCommandLineCodigos(CodigosModel codModel) =>
+            BuildSqlUpdateStatement("Codigos", codModel);
 
-            #endregion
-        
-            return sb.ToString();
-        }
-
-        private static string CreateCommandLineMarcas(MarcaModel marcaModel)
-        {
-            List<string> values = [];
-            StringBuilder sb = new();
-
-            #region DicUnidades
-
-            sb.Append("INSERT INTO DicMarcas VALUES(");
-            foreach (PropertyInfo property in marcaModel.GetType().GetProperties())
-            { values.Add(FormatManagement.FormatByStringSql(property.GetValue(marcaModel))); }
-            sb.Append(string.Join(", ", values) + "); \n");
-
-            #endregion
-
-            return sb.ToString();
-        }
 
 
         /// <summary>
@@ -265,7 +231,7 @@ namespace BaseConverter.Management
         }
         
         /// <summary>
-        /// 
+        /// Create essential dependent objects for the <see cref="ProdutoModel"/>.
         /// </summary>
         public static void ShutWithDependentsProdutos()
         {
@@ -289,6 +255,7 @@ namespace BaseConverter.Management
 
                 GlobalVariables.StringOutput.Append(CreateCommandLineDepartamentos(depModel, catModel));
 
+                GlobalVariables.CurrentIdDepartamentos++;
                 GlobalVariables.CurrentIdCategorias++;
             }
 
@@ -327,6 +294,8 @@ namespace BaseConverter.Management
             }
 
             #endregion
+
+            GlobalVariables.StringOutput.Append(CreateCommandLineCodigos(new CodigosModel()));
         }
     }
 }
