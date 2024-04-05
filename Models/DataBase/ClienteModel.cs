@@ -1,4 +1,7 @@
-﻿namespace BaseConverter.Models
+﻿using BaseConverter.Enums;
+using BaseConverter.Management;
+
+namespace BaseConverter.Models
 {
     public class ClienteModel
     {
@@ -78,7 +81,7 @@
         public decimal LimiteDeCheques { get; set; } = 0.00m;
         public bool AddUpd { get; set; } = false;
         public string Celular2 { get; set; } = string.Empty;
-        public string CodigoMunicipio { get; set; } = string.Empty;
+        public string CodigoMunicipio  => IBGEManagement.GetCidadeByNome(Enum.Parse<EstadosEnum>(Uf), Cidade)?.ToString() ?? string.Empty;
         public string CodigoMunicipioCob { get; set; } = string.Empty;
         public string? IdEstrangeiro { get; set; } = null;
         public bool AvisoNfs { get; set; } = false;
