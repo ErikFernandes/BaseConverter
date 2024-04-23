@@ -46,7 +46,7 @@
         public string CSOSN { get; set; } = "102";
         public string Origem { get; set; } = "0";
         public string CSTCOFINS { get; set; } = string.Empty;
-        public decimal ValorCustoMedio { get; set; } = 0.00m;
+        public decimal ValorCustoMedio { get; set; } = 1.00m;
         public string cEAN { get; set; } = string.Empty;
         public string cEANTrib { get; set; } = string.Empty;
         public decimal CustoIpi { get; set; } = 0.00m;
