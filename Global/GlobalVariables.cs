@@ -37,6 +37,15 @@ namespace BaseConverter.Global
 
         #endregion
 
+        /// <summary>
+        /// Properties used to check if code repeats.
+        /// </summary>
+        #region Códigos conhecidos
+
+        public static List<string> CodBarrasKnown { get; set; } = [];
+
+        #endregion
+
 
         /// <summary>
         /// List of records composing the product registry and need to be inserted into other tables.
