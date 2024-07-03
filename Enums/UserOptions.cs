@@ -43,6 +43,9 @@
         Cidade,
         CpfCnpj,
         InscEst,
-        DataControl
+        DataControl,
+        Nascimento,
+        Rg,
+        Email
     }
 }

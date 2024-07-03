@@ -44,7 +44,7 @@ namespace BaseConverter.Management
         /// <param name="value">Value to be formatted.</param>
         /// <returns>Formatted value of the expected type in the <paramref name="column"/> column.</returns>
         /// <exception cref="Exception">Error if the passed column is not implemented.</exception>
-        public static object FormatValueForColumnCli(ColumnsSupportedCli column, string value)
+        public static object? FormatValueForColumnCli(ColumnsSupportedCli column, string value)
         {
             return column switch
             {
@@ -63,6 +63,9 @@ namespace BaseConverter.Management
                 ColumnsSupportedCli.CpfCnpj => value.RemoveMarks().CutIfTooLong(14),
                 ColumnsSupportedCli.InscEst => value.RemoveMarks().CutIfTooLong(14),
                 ColumnsSupportedCli.DataControl => value.ToDateTime() ?? throw new Exception("Invalid value for column: " + column.ToString()),
+                ColumnsSupportedCli.Nascimento => value.ToDateTime(),
+                ColumnsSupportedCli.Rg => value.RemoveMarks().CutIfTooLong(15),
+                ColumnsSupportedCli.Email => value.RemoveMarks().CutIfTooLong(100),
                 _ => throw new Exception("Column not implemented in FormatValueForColumnCli()"),
             };
         }
