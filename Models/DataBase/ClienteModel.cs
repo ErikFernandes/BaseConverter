@@ -23,7 +23,7 @@ namespace BaseConverter.Models
         public string Conjuge { get; set; } = string.Empty;
         public string Contato { get; set; } = string.Empty;
         public string CpfCnpj { get; set; } = string.Empty;
-        public string TipoDocumento { get; set; } = string.Empty;
+        public string TipoDocumento => CpfCnpj.Length == 11 ? "CPF" : CpfCnpj.Length == 14 ? "CNPJ" : string.Empty;
         public string CxPostal { get; set; } = string.Empty;
         public string CxPostalCob { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
