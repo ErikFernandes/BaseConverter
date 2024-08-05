@@ -47,7 +47,7 @@ namespace BaseConverter.Extensions
         /// <returns><paramref name="input"/> converted to <see cref="decimal"/> or <see langword="null"/> if the value cannot be converted.</returns>
         public static decimal? ToDecimal(this string input)
         {
-            string valueFormmated = string.Empty;
+            string valueFormmated = input;
 
             if (input.Contains('.'))
             {
@@ -56,7 +56,6 @@ namespace BaseConverter.Extensions
                 else
                     valueFormmated = input.Replace(".", ",");
             }
-            else if (input.Contains(',')) valueFormmated = input;
 
 
             return decimal.TryParse(valueFormmated, out decimal result) ? result : null;
