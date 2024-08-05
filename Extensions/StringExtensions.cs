@@ -39,7 +39,7 @@ namespace BaseConverter.Extensions
         /// <returns>True if the string <paramref name="input"/> is contained in <paramref name="values"/>.</returns>
         public static bool In(this string input, params string[] values) =>
             values.Contains(input);
-       
+
         /// <summary>
         /// Converts a <see cref="string"/> value to a <see cref="decimal"/> value.
         /// </summary>
@@ -47,10 +47,19 @@ namespace BaseConverter.Extensions
         /// <returns><paramref name="input"/> converted to <see cref="decimal"/> or <see langword="null"/> if the value cannot be converted.</returns>
         public static decimal? ToDecimal(this string input)
         {
-            if (Convert.ToDecimal("3.3") == ((decimal)3.3))
-            { return decimal.TryParse(input.Replace(",", "."), out decimal result) ? result : null; }
-            else
-            { return decimal.TryParse(input.Replace(".", ","), out decimal result) ? result : null; }
+            string valueFormmated = string.Empty;
+
+            if (input.Contains('.'))
+            {
+                if (input.Contains(','))
+                    valueFormmated = input.Replace(",", string.Empty).Replace(".", ",");
+                else
+                    valueFormmated = input.Replace(".", ",");
+            }
+            else if (input.Contains(',')) valueFormmated = input;
+
+
+            return decimal.TryParse(valueFormmated, out decimal result) ? result : null;
         }
 
         /// <summary>
