@@ -70,6 +70,34 @@ namespace BaseConverter.Management
             };
         }
 
+        /// <summary>
+        /// Formats a value to the expected pattern in the <paramref name="column"/> column.
+        /// </summary>
+        /// <param name="column">Destination column.</param>
+        /// <param name="value">Value to be formatted.</param>
+        /// <returns>Formatted value of the expected type in the <paramref name="column"/> column.</returns>
+        /// <exception cref="Exception">Error if the passed column is not implemented.</exception>
+        public static object? FormatValueForColumnForn(ColumnsSupportedForn column, string value)
+        {
+            return column switch
+            {
+                ColumnsSupportedForn.Nome => value.RemoveMarks().CutIfTooLong(100),
+                ColumnsSupportedForn.Ende => value.RemoveMarks().CutIfTooLong(60),
+                ColumnsSupportedForn.Numero => value.RemoveMarks().CutIfTooLong(5),
+                ColumnsSupportedForn.Complemento => value.RemoveMarks().CutIfTooLong(60),
+                ColumnsSupportedForn.Bairro => value.RemoveMarks().CutIfTooLong(60),
+                ColumnsSupportedForn.Uf => value.RemoveMarks().CutIfTooLong(2),
+                ColumnsSupportedForn.Cidade => value.RemoveMarks().CutIfTooLong(30),
+                ColumnsSupportedForn.Cep => value.RemoveMarks().CutIfTooLong(8),
+                ColumnsSupportedForn.CpfCnpj => value.RemoveMarks().CutIfTooLong(14),
+                ColumnsSupportedForn.InscEst => value.RemoveMarks().CutIfTooLong(14),
+                ColumnsSupportedForn.Email => value.RemoveMarks().CutIfTooLong(100),
+                ColumnsSupportedForn.Tel => value.ToPhone().CutIfTooLong(10),
+                ColumnsSupportedForn.Cel => value.ToCell().CutIfTooLong(11),
+                _ => throw new Exception("Column not implemented in FormatValueForColumnForn()"),
+            };
+        }
+
 
         /// <summary>
         /// Formats a value to be inserted into an INSERT string.

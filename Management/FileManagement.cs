@@ -57,5 +57,12 @@ namespace BaseConverter.Management
         /// <param name="content">Content to be written.</param>
         public static void WriteFileProdutos(string content) =>
             WriteFile(GlobalVariables.PathFileProdutos, content);
+
+        /// <summary>
+        /// Writes <paramref name="content"/> to the file located at <see cref="GlobalVariables.PathFileFornecedores"/>.
+        /// </summary>
+        /// <param name="content">Content to be written.</param>
+        public static void WriteFileFornecedores(string content) =>
+            WriteFile(GlobalVariables.PathFileFornecedores, content);
     }
 }

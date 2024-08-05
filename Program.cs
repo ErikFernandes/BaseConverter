@@ -1,6 +1,7 @@
 ﻿using BaseConverter.Enums;
 using BaseConverter.Global;
 using BaseConverter.Management;
+using BaseConverter.Models;
 
 namespace BaseConverter
 {
@@ -59,6 +60,10 @@ namespace BaseConverter
                 case TypeConversion.Produtos:
                     ConversionManagement.LoadColumnsProdutos();
                     break;
+
+                case TypeConversion.Fornecedores:
+                    ConversionManagement.LoadColumnsFornecedores();
+                    break;
             }
 
 
@@ -82,10 +87,17 @@ namespace BaseConverter
                         GlobalVariables.CurrentIdProdutos++;
                         GlobalVariables.CurrentIdProdutosQtd++;
                         break;
+
+                    case TypeConversion.Fornecedores:
+                        ConversionManagement.BuildLineFornecedores(line);
+                        GlobalVariables.CurrentIdCadFor++;
+                        break;
                 }
             }
 
             if (GlobalVariables.SelectedType == TypeConversion.Produtos) { ConversionManagement.ShutWithDependentsProdutos(); }
+
+            GlobalVariables.StringOutput.Append(ConversionManagement.CreateCommandLineCodigos(new CodigosModel()));
 
             #endregion
 
@@ -99,6 +111,10 @@ namespace BaseConverter
 
                 case TypeConversion.Produtos:
                     FileManagement.WriteFileProdutos(GlobalVariables.StringOutput.ToString());
+                    break;
+
+                case TypeConversion.Fornecedores:
+                    FileManagement.WriteFileFornecedores(GlobalVariables.StringOutput.ToString());
                     break;
             }
 

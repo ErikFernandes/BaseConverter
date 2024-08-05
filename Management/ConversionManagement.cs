@@ -77,6 +77,14 @@ namespace BaseConverter.Management
             BuildSqlInsertStatement("CadCli", cliente);
 
         /// <summary>
+        /// Creates an INSERT statement for the table <see cref="FornecedorModel"/>.
+        /// </summary>
+        /// <param name="fornecedor">Model filled with column values.</param>
+        /// <returns>String containing the INSERT for the table.</returns>
+        private static string CreateCommandLineFornecedores(FornecedorModel fornecedor) =>
+            BuildSqlInsertStatement("CadFor", fornecedor);
+
+        /// <summary>
         /// Creates an INSERT statement for the tables <see cref="DepartamentoModel"/> and <see cref="CategoriasModel"/>.
         /// </summary>
         /// <param name="depModel">Model filled with column values.</param>
@@ -105,8 +113,8 @@ namespace BaseConverter.Management
         /// Creates an UPDATE statement for the table <see cref="CodigosModel"/>
         /// </summary>
         /// <param name="codModel">Model filled with column values.</param>
-        /// <returns>String containing the INSERT for the table.</returns>
-        private static string CreateCommandLineCodigos(CodigosModel codModel) =>
+        /// <returns>String containing the UPDATE for the table.</returns>
+        public static string CreateCommandLineCodigos(CodigosModel codModel) =>
             BuildSqlUpdateStatement("Codigos", codModel);
 
 
@@ -162,6 +170,33 @@ namespace BaseConverter.Management
 
                 if (valueEnter != string.Empty)
                 { GlobalVariables.SelectedColumnsCli[column] = (int)Enum.Parse<ColumnsIndex>(valueEnter); }
+            }
+        }
+
+        /// <summary>
+        /// Receives user input through the <see cref="Console"/> and updates the <see cref="GlobalVariables.SelectedColumnsForn"/> <br/>
+        /// with the columns selected by the user.
+        /// </summary>
+        public static void LoadColumnsFornecedores()
+        {
+            foreach (ColumnsSupportedForn column in GlobalVariables.SelectedColumnsForn.Keys)
+            {
+                Console.Write($"{column,-22} : ");
+
+                string valueEnter = Console.ReadLine()?.ToUpper() ?? string.Empty;
+
+                if (LetterIsNotValid(valueEnter))
+                {
+                    while (true)
+                    {
+                        Console.WriteLine("Opção inválida! Tente novamente: ");
+                        valueEnter = Console.ReadLine()?.ToUpper() ?? string.Empty;
+                        if (!LetterIsNotValid(valueEnter)) { break; }
+                    }
+                }
+
+                if (valueEnter != string.Empty)
+                { GlobalVariables.SelectedColumnsForn[column] = (int)Enum.Parse<ColumnsIndex>(valueEnter); }
             }
         }
 
@@ -234,7 +269,33 @@ namespace BaseConverter.Management
 
             GlobalVariables.StringOutput.AppendLine(CreateCommandLineClientes(cliente));
         }
-        
+
+        /// <summary>
+        /// Builds and adds an INSERT statement for suppliers from a CSV (<paramref name="line"/>) row <br/>
+        /// with the desired values.
+        /// </summary>
+        /// <param name="line">CSV row (;) with values.</param>
+        public static void BuildLineFornecedores(string line)
+        {
+
+            string[] lineValues = line.Split(";");
+
+            // If the used table has auto-increment, the ID does not need to be added in the 
+            // database models.
+            FornecedorModel fornecedor = new()
+            { IdCadFor = GlobalVariables.CurrentIdCadFor };
+
+            foreach (ColumnsSupportedForn column in GlobalVariables.SelectedColumnsForn.Keys)
+            {
+                if (GlobalVariables.SelectedColumnsForn[column]!.IsNull()) { continue; }
+
+                fornecedor.SetValueColumn(column, FormatManagement.
+                    FormatValueForColumnForn(column, lineValues[GlobalVariables.SelectedColumnsForn[column]!.Value]));
+            }
+
+            GlobalVariables.StringOutput.AppendLine(CreateCommandLineFornecedores(fornecedor));
+        }
+
         /// <summary>
         /// Create essential dependent objects for the <see cref="ProdutoModel"/>.
         /// </summary>
@@ -300,7 +361,6 @@ namespace BaseConverter.Management
 
             #endregion
 
-            GlobalVariables.StringOutput.Append(CreateCommandLineCodigos(new CodigosModel()));
         }
     }
 }

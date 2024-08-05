@@ -3,7 +3,8 @@
     public enum TypeConversion
     {
         Produtos = 1,
-        Clientes = 2
+        Clientes = 2,
+        Fornecedores = 3
     }
 
     public enum ColumnsSupportedProd
@@ -47,5 +48,22 @@
         Nascimento,
         Rg,
         Email
+    }
+
+    public enum ColumnsSupportedForn
+    {
+        Nome,
+        Ende,
+        Numero,
+        Complemento,
+        Bairro,
+        Uf,
+        Cidade,
+        Cep,
+        CpfCnpj,
+        InscEst,
+        Email,
+        Tel,
+        Cel
     }
 }

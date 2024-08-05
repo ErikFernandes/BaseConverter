@@ -18,6 +18,7 @@ namespace BaseConverter.Global
 
         public static string PathFileProdutos { get; set; } = "C:\\Conversão\\ScriptConversão - Produtos.sql";
         public static string PathFileClientes { get; set; } = "C:\\Conversão\\ScriptConversão - Clientes.sql";
+        public static string PathFileFornecedores { get; set; } = "C:\\Conversão\\ScriptConversão - Fornecedores.sql";
 
         #endregion
 
@@ -34,8 +35,10 @@ namespace BaseConverter.Global
         public static int CurrentIdCategorias { get; set; } = 1;
         public static int CurrentIdUnidades { get; set; } = 1;
         public static int CurrentIdMarcas { get; set; } = 1;
+        public static int CurrentIdCadFor { get; set; } = 1;
 
         #endregion
+
 
         /// <summary>
         /// Properties used to check if code repeats.
@@ -83,6 +86,13 @@ namespace BaseConverter.Global
         public static Dictionary<ColumnsSupportedCli, int?> SelectedColumnsCli { get; set; } =
             Enum.GetValues(typeof(ColumnsSupportedCli)).Cast<ColumnsSupportedCli>().
                 Select(x => new KeyValuePair<ColumnsSupportedCli, int?>(x, null)).ToDictionary(x => x.Key, x => x.Value);
+
+        /// <summary>
+        /// Columns of the .csv file of suppliers selected by the user.
+        /// </summary>
+        public static Dictionary<ColumnsSupportedForn, int?> SelectedColumnsForn { get; set; } =
+            Enum.GetValues(typeof(ColumnsSupportedForn)).Cast<ColumnsSupportedForn>().
+                Select(x => new KeyValuePair<ColumnsSupportedForn, int?>(x, null)).ToDictionary(x => x.Key, x => x.Value);
 
     }
 }
