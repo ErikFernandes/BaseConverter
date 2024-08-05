@@ -60,7 +60,6 @@
         public bool AddUpd { get; set; } = false;
         public string? Producao { get; set; } = null;
         public string FastFoodNomeBotao { get; set; } = string.Empty;
-        public string GTIN { get; set; } = string.Empty;
         public bool MatPrima { get; set; } = false;
         public string Anp { get; set; } = string.Empty;
         public int cEnq { get; set; } = 0;
