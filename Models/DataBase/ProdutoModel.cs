@@ -82,7 +82,6 @@
         public string? ProdCfopEnt { get; set; } = null;
         public bool Revenda { get; set; } = true;
         public bool PetVacina { get; set; } = false;
-        public bool ArmaFogo { get; set; } = false;
         public bool IsMedicamento { get; set; } = false;
         public string? Med_CodProdAnvisa { get; set; } = null;
         public string? Med_AnvisaMotivoIsencao { get; set; } = null;
