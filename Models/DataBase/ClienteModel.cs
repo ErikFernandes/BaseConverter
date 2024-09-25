@@ -16,7 +16,7 @@ namespace BaseConverter.Models
         public string Celular { get; set; } = string.Empty;
         public string Cep { get; set; } = string.Empty;
         public string CepCob { get; set; } = string.Empty;
-        public string Cidade { get; set; } = string.Empty;
+        public string Cidade { get; set; } = "Divinópolis";
         public string CidadeCob { get; set; } = string.Empty;
         public string Complemento { get; set; } = string.Empty;
         public string ComplementoCob { get; set; } = string.Empty;
@@ -71,7 +71,7 @@ namespace BaseConverter.Models
         public string RefEmpresaTel { get; set; } = string.Empty;
         public string RefCargo { get; set; } = string.Empty;
         public string RefTempoServico { get; set; } = string.Empty;
-        public string Uf { get; set; } = string.Empty;
+        public string Uf { get; set; } = "MG";
         public string UfCob { get; set; } = string.Empty;
         public bool IsentoDoIcms { get; set; } = false;
         public string? InscricaoSuframa { get; set; } = null;
