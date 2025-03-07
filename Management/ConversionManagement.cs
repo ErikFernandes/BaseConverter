@@ -65,8 +65,8 @@ namespace BaseConverter.Management
         /// <param name="produto">Model filled with column values.</param>
         /// <param name="produtoQtd">Model filled with column values.</param>
         /// <returns>String containing the INSERT for both tables.</returns>
-        private static string CreateCommandLineProdutos(ProdutoModel produto, ProdutosQtdModel produtoQtd) =>
-            BuildSqlInsertStatement("Produtos", produto) + BuildSqlInsertStatement("ProdutosQtd", produtoQtd);
+        private static string CreateCommandLineProdutos(ProdutoModel produto, ProdutosQtdModel produtoQtd, ProdutosMovimentacaoModel movimentacao) =>
+            BuildSqlInsertStatement("Produtos", produto) + BuildSqlInsertStatement("ProdutosQtd", produtoQtd) + BuildSqlInsertStatement("ProdutosMovimentacao", movimentacao);
 
         /// <summary>
         /// Creates an INSERT statement for the table <see cref="ClienteModel"/>.
@@ -282,7 +282,14 @@ namespace BaseConverter.Management
             GlobalVariables.AllUnidades.AddIfNotExists(produto.Unidade);
             GlobalVariables.AllMarcas.AddIfNotExists(produto.Marca);
 
-            GlobalVariables.StringOutput.AppendLine(CreateCommandLineProdutos(produto, produtoQtd));
+            ProdutosMovimentacaoModel moviment = new()
+            {
+                IdProd = produto.IdProd,
+                Quantidade = produtoQtd.Quantidade,
+                PrecoUnitario = produto.PrecoVendaVarejo
+            };
+
+            GlobalVariables.StringOutput.AppendLine(CreateCommandLineProdutos(produto, produtoQtd, moviment));
 
         }
 
