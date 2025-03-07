@@ -11,6 +11,40 @@ namespace BaseConverter
         {
 
             Console.WriteLine("Bem vindo ao Conversor de Banco!\n");
+
+            #region Check TempBkp
+
+            bool useTempBkp = false;
+
+            if (TempBkpManagement.ExistsBkpFile())
+            {
+                while (true)
+                {
+                    Console.WriteLine("Deseja usar as opções salvas? (Y/N): ");
+                    string option = Console.ReadLine() ?? string.Empty;
+
+                    if (option.Equals("Y", StringComparison.CurrentCultureIgnoreCase)) { useTempBkp = true; break; }
+                    else if (option.Equals("N", StringComparison.CurrentCultureIgnoreCase)) { useTempBkp = false; break; }
+                    else
+                    {
+                        Console.WriteLine("Opção inválida");
+                        continue;
+                    }
+                }
+            }
+
+            if (useTempBkp)
+            {
+                TempBkpManagement.LoadBkpFile();
+                goto skipUserInfo;
+            }
+            else
+            {
+                TempBkpManagement.DeleteBkpFile();
+            }
+
+            #endregion
+
             Console.WriteLine("Selecione uma opção de conversão:");
 
             #region Option selection
@@ -68,6 +102,32 @@ namespace BaseConverter
 
 
             #endregion
+
+            #region Save TempBkp
+
+            bool saveFile;
+
+            while (true)
+            {
+                Console.WriteLine("Deseja salvar essas opções para as próximas vezes? (Y/N): ");
+                string option = Console.ReadLine() ?? string.Empty;
+
+                if (option.Equals("Y", StringComparison.CurrentCultureIgnoreCase)) { saveFile = true; break; }
+                else if (option.Equals("N", StringComparison.CurrentCultureIgnoreCase)) { saveFile = false; break; }
+                else
+                {
+                    Console.WriteLine("Opção inválida");
+                    continue;
+                }
+            }
+
+            if (saveFile)
+                TempBkpManagement.CreateBkpFile();
+
+            #endregion
+
+            // Here the file is loaded
+            skipUserInfo:
 
             #region Load file
 
