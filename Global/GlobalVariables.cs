@@ -1,4 +1,5 @@
 ﻿using BaseConverter.Enums;
+using BaseConverter.Models;
 using System.Text;
 
 namespace BaseConverter.Global
@@ -55,7 +56,8 @@ namespace BaseConverter.Global
         /// </summary>
         #region Dependents
 
-        public static List<string> AllDepartamentos { get; set; } = [];
+        public static List<DepartamentoModel> AllDepartamentos { get; set; } = [];
+        public static List<CategoriasModel> AllCategorias { get; set; } = [];
         public static List<string> AllUnidades { get; set; } = [];
         public static List<string> AllMarcas { get; set; } = [];
 

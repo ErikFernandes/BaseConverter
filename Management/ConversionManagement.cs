@@ -90,8 +90,17 @@ namespace BaseConverter.Management
         /// <param name="depModel">Model filled with column values.</param>
         /// <param name="catModel">Model filled with column values.</param>
         /// <returns>String containing the INSERT for both tables.</returns>
-        private static string CreateCommandLineDepartamentos(DepartamentoModel depModel, CategoriasModel catModel)
-            => BuildSqlInsertStatement("DicDepartamentos", depModel) + BuildSqlInsertStatement("DicCategorias", catModel);
+        private static string CreateCommandLineDepartamentos(DepartamentoModel depModel, CategoriasModel[] catModel)
+        {
+
+            string outStr = BuildSqlInsertStatement("DicDepartamentos", depModel);
+            
+            foreach (CategoriasModel cat in catModel)
+                outStr += BuildSqlInsertStatement("DicCategorias", cat); 
+            
+            return outStr + "\n";
+        
+        }
 
         /// <summary>
         /// Creates an INSERT statement for the table <see cref="UnidadeModel"/>
@@ -237,9 +246,42 @@ namespace BaseConverter.Management
             { throw new Exception("Cod. de barras duplicado: " + produto.CodBarras); }
 
             GlobalVariables.CodBarrasKnown.Add(produto.CodBarras);
-            GlobalVariables.AllDepartamentos.AddIfNotExists(produto.Departamento);
+
+            if (!GlobalVariables.AllDepartamentos.Where(dep => dep.Departamento == produto.Departamento).Any())
+            {
+                GlobalVariables.AllDepartamentos.Add(new()
+                {
+                    IdDepartamento = GlobalVariables.CurrentIdDepartamentos,
+                    Departamento = produto.Departamento,
+                    DataControl = DateTime.Now
+                });
+
+                GlobalVariables.AllCategorias.Add(new()
+                {
+                    IdCategorias = GlobalVariables.CurrentIdCategorias,
+                    Departamento = produto.Departamento,
+                    Categoria = produto.Categoria,
+                    DataControl = DateTime.Now
+                });
+
+                GlobalVariables.CurrentIdDepartamentos++;
+                GlobalVariables.CurrentIdCategorias++;
+            }
+            else if (!GlobalVariables.AllCategorias.Where(cat => cat.Categoria == produto.Categoria && cat.Departamento == produto.Departamento).Any())
+            {
+                GlobalVariables.AllCategorias.Add(new() {
+                    IdCategorias = GlobalVariables.CurrentIdCategorias,
+                    Departamento = produto.Departamento,
+                    Categoria = produto.Categoria,
+                    DataControl = DateTime.Now
+                });
+
+                GlobalVariables.CurrentIdCategorias++;
+            }
+
             GlobalVariables.AllUnidades.AddIfNotExists(produto.Unidade);
             GlobalVariables.AllMarcas.AddIfNotExists(produto.Marca);
+
             GlobalVariables.StringOutput.AppendLine(CreateCommandLineProdutos(produto, produtoQtd));
 
         }
@@ -305,24 +347,13 @@ namespace BaseConverter.Management
 
             #region Departamentos/Categorias
 
-            foreach (string dep in GlobalVariables.AllDepartamentos)
+            foreach (DepartamentoModel dep in GlobalVariables.AllDepartamentos)
             {
-                DepartamentoModel depModel = new()
-                {
-                    IdDepartamento = GlobalVariables.CurrentIdDepartamentos,
-                    Departamento = dep
-                };
 
-                CategoriasModel catModel = new()
-                {
-                    IdCategorias = GlobalVariables.CurrentIdCategorias,
-                    Departamento = dep
-                };
+                CategoriasModel[] catModel = GlobalVariables.AllCategorias.Where(cat => cat.Departamento == dep.Departamento).ToArray();
 
-                GlobalVariables.StringOutput.Append(CreateCommandLineDepartamentos(depModel, catModel));
+                GlobalVariables.StringOutput.Append(CreateCommandLineDepartamentos(dep, catModel));
 
-                GlobalVariables.CurrentIdDepartamentos++;
-                GlobalVariables.CurrentIdCategorias++;
             }
 
             #endregion
