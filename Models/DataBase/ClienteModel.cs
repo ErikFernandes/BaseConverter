@@ -81,7 +81,7 @@ namespace BaseConverter.Models
         public decimal LimiteDeCheques { get; set; } = 0.00m;
         public bool AddUpd { get; set; } = false;
         public string Celular2 { get; set; } = string.Empty;
-        public string CodigoMunicipio  => IBGEManagement.GetCidadeByNome(Enum.Parse<EstadosEnum>(Uf), Cidade)?.CodMunicipio.ToString() ?? string.Empty;
+        public string CodigoMunicipio  => IBGEManagement.GetCidadeByNome(Enum.Parse<EstadosEnum>(Uf == string.Empty ? "MG" : Uf), Cidade)?.CodMunicipio.ToString() ?? string.Empty;
         public string CodigoMunicipioCob { get; set; } = string.Empty;
         public string? IdEstrangeiro { get; set; } = null;
         public bool AvisoNfs { get; set; } = false;
