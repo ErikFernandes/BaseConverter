@@ -8,7 +8,7 @@
         public string Vendedor { get; set; } = string.Empty;
         public DateTime Data => DateTime.Now;
         public string Documento { get; set; } = string.Empty;
-        public string Historico { get; set; } = "Adicionado pelo sistema de conversão";
+        public string Historico { get; set; } = "Adicionado pelo sistema de conversão";
         public decimal Quantidade { get; set; }
         public decimal PrecoUnitario { get; set; }
         public decimal Estoque => Quantidade;
