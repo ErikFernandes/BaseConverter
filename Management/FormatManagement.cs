@@ -51,7 +51,7 @@ namespace BaseConverter.Management
                 ColumnsSupportedCli.Nome => value.RemoveMarks().Trim().CutIfTooLong(60),
                 ColumnsSupportedCli.NomeFantasia => value.RemoveMarks().Trim().CutIfTooLong(50),
                 ColumnsSupportedCli.Ende => value.RemoveMarks().Trim().CutIfTooLong(60),
-                ColumnsSupportedCli.Numero => value.RemoveMarks().Trim().CutIfTooLong(10),
+                ColumnsSupportedCli.Numero => value.RemoveMarks().Trim().CutIfTooLong(5),
                 ColumnsSupportedCli.Complemento => value.RemoveMarks().Trim().CutIfTooLong(20),
                 ColumnsSupportedCli.Bairro => value.RemoveMarks().Trim().CutIfTooLong(60),
                 ColumnsSupportedCli.Cep => value.RemoveMarks().Trim().RemoveAll(["-", "."]).CutIfTooLong(8),
